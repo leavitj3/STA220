@@ -1,3 +1,7 @@
+Made-up data for STA 220 at The College of New Jersey. The school, the students, the teachers,
+and the grades in this folder are not real.
+
+
 Codebook for math department curriculum review, fall 2026
 
 

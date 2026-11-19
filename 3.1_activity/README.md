@@ -67,6 +67,33 @@ comes from in a Summary sheet (subgroup header, then column name):
 (1982-84 = 100), from the Bureau of Labor Statistics. An amount from year y in 2025 dollars is
 `amount * cpi_u[2025] / cpi_u[y]`. Check the table against bls.gov before reusing it.
 
+## Drive times and police headquarters (OpenStreetMap)
+
+`data/police_hq_addresses.xlsx` has one row per police department: every department in Mercer
+County, plus departments in Middlesex, Burlington, Hunterdon, and Monmouth counties whose town
+centers are within about 30 minutes of TCNJ (19 in all). Each row gives the web page its address
+came from (`address_source`), checked October 22, 2026. The `codebook` sheet explains every column.
+
+`data/police_hq_drive_times.csv` is made by `05_drive_times.R` and read by `06_police_salary.R`. It
+has the drive time and distance from TCNJ to each headquarters, with no traffic. Two free public
+services supplied it:
+
+- The U.S. Census Bureau's geocoder turned 17 of the 19 addresses into latitude and longitude.
+- OpenStreetMap supplied the rest. The coordinates for the two addresses the Census could not match
+  (South Brunswick and Mansfield) were looked up in OpenStreetMap's search, Nominatim. Every drive
+  time and distance was calculated by OSRM, a routing program that runs on OpenStreetMap's road
+  map (router.project-osrm.org, queried October 22, 2026).
+
+Data from OpenStreetMap is © OpenStreetMap contributors and is available under the Open Database
+License (ODbL): https://www.openstreetmap.org/copyright. If you reuse the drive times, the
+distances, or those two coordinates, keep this credit with them.
+
+Nominatim and the OSRM server are shared servers with usage policies: at most one request per
+second, and no bulk or heavy use. Read them before you send either one a request:
+https://operations.osmfoundation.org/policies/nominatim/ and
+https://routing.openstreetmap.de/about.html. You do not need to run `05_drive_times.R`, because its
+output is already in `data/`.
+
 ## Manually Curating Data for Import into R
 
 ufb_2026_police.csv was manually created following the steps below:
